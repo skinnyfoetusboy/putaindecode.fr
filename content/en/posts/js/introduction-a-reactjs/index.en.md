@@ -1,12 +1,13 @@
 ---
+lang: en
 date: "2014-06-04"
-route: /posts/js/introduction-a-reactjs/
 title: Introducing ReactJS
 tags:
   - javascript
   - reactjs
 authors:
   - bloodyowl
+translators:
   - skinnyfoetusboy
 ---
 
@@ -18,7 +19,7 @@ Let's take it as an opportunity to introduce the last-born child of the MV* tren
 ### Backbone
 
 [Backbone](http://backbonejs.org) brings a simplification in events declaration,
-but doesn't indulge quite that much in rendering.
+but doesn't handle that much rendering.
 Making the developer the sole master of `Backbone.View`
 is positive for several kinds of projects, but makes
 DOM manipulation tedious.
@@ -27,14 +28,13 @@ On the subject of data-binding, `Backbone` doesn't actually come
 with any in-house solutions and you're stuck with using mixins to
 implement it without resorting to gnawing your own legs off.
 
-Moreover, it's usually a templating engine ala Handlebars or Jade
+Moreover, it's usually a templating engine *à la* Handlebars or Jade
 that creates the original view. Thus, you find yourself with some sort
 of `this.$el.html(this.template(data))` in your `render()` method which
 will leave you with a few UX aberrations like your pictures re-rendering
 themselves or videos playing back from the start.
 
-In a nutshell, Backbone is pretty useful to create some sort of
-structure your code, but it is absolutely lackluster in
+In a nutshell, Backbone is pretty useful to help you structure your code, but it is absolutely lackluster in
 diminishing DOM-related complexity concerning the UI of your app.
 
 ### Angular
@@ -66,16 +66,16 @@ do it :
 
 ### React
 
-[React](http://facebook.github.io/react/) doesn't care what other people do.
+[React](http://facebook.github.io/react/) brings a completely different approach.
 It has one simple way of going about stuff :
-holy crap, managing the state of the DOM _sucks_
+managing the DOM state is a bloody mess.
 
 Okay, let's just say we call `.render()` everytime anything changes.
-That might sound _real_ dumb but there's a gotcha about it.
+Sounds dumb, right? Actually not that much.
 
-React has a __virtual DOM__ (nothing to do with facebook's purchase of Oculus VR),
+React implements a __virtual DOM__,
 a blazing-fast internal representation of the DOM. It comes with its own events system
-which allows React to bring the capturing phase to browsers that don't have
+which allows React to bring a consistent event system to browsers that don't have
 `EventTarget` (looking at you, IE8).
 
 The `render` method returns objects corresponding to the internal representation
@@ -83,26 +83,25 @@ of the virtual DOM.
 
 React classes are defined by their `state`.
 When creating a class, you specify a `getInitialState` method which
-will return the initial state (duh!).
+will return the initial state.
 
 After that, the only way to modify the state is to pass which values
 of the state have changed to `this.setState` so that it can update
 the DOM.
 
 A React class takes properties when it's instanciated : they're called `props`.
-They shouldn't be confused with the `state`, its content should only be manipulated
+They shouldn't be confused with the `state`, their content should only be manipulated
 from _outside_ of the the class (even though it can still get default values by
 specifying a `getDefaultProps` method which will return them).
 
-The `state`, however, shall only be modified by the class's own methods.
+The `state`, however, should only be modified by the class's own methods.
 
 The main advantage to this is that you're always sure, thanks to the systematic
-call to `render`, that your React component will look and act like you expect it
-to.
+call to `render`, that your React component will have the expected representation.
 
 Another advantage to React is its in-house diff algorithm.
 The virtual DOM gets diffed against the previous one (which is the one you see),
-and React works out which operations it needs to execute in order to update the 
+and React works out the smallest amount of operations needed in order to update the 
 DOM.
 
 This solves a few issues like keeping track of the caret's position in a text
@@ -111,9 +110,9 @@ to update it, the text field doesn't get re-rendered and you keep the focus.
 In the same way, if you've got a gif looping somewhere in your page, it will keep
 playing as it normally would.
 
-React is made to work with JSX (that's JavaScript XML), a superset of JS which
+React plays very well with JSX, a superset of JS which
 allows you to write your templates with an XML syntax (see example below),
-alowing even beginners to get stuff done with it quickly.
+alowing beginners to get stuff done with it quickly.
 
 ## Let's create a React component :
 
@@ -127,7 +126,7 @@ var View = React.createClass({
     }
   },
   getDefaultProps : function(){
-    // if `this.props.label` isn't defined, then `"?"` will be displayed
+    // if `this.props.label` isn't defined, then `"?"` will be used
     return {
       label : "?"
     }
@@ -155,7 +154,7 @@ var View = React.createClass({
   }
 })
 
-// let's mount the component and pass the label to it
+// we mount the component and pass the label to it
 var view = React.render(<View label="helloworld" />, document.getElementById("id"))
 // and voilà!
 view.toggle()
@@ -165,8 +164,8 @@ view.toggle()
 
 React has this figured out:
 
-- DOM i/o is slow and not accessing it too often is crucial;
-- always thinking about the state the DOM has at every moment is not what we should
+- the DOM is slow, particularly its writes, and limiting interactions with it is crucial;
+- always thinking about the state the DOM has at any point in time is not what we should
 do while developing the UI of our component;
 - immutability (objects don't change, a new one gets created every time you need to change something in it) and composition (composing a class of several functionnalities without having to create deep and complex chains of inheritance) are really useful and not used nearly as much as they should be in front-end development.
 
