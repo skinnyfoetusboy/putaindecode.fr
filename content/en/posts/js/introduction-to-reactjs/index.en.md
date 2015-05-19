@@ -1,7 +1,7 @@
 ---
 lang: en
 date: "2014-06-04"
-title: Introducing ReactJS
+title: Introduction to ReactJS
 tags:
   - javascript
   - reactjs
