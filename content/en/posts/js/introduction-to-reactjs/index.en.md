@@ -47,19 +47,19 @@ syntax.
 Events are declarated in much the same way, using `ng-{eventName}` attributes.
 
 Basically, Angular is technically really interesting (but don't get me started
-on dirty checking)
+on dirty checking).
 
 ### Ember
 
 [Ember](http://emberjs.com) is a well-thought and well-developed framework.
 It integrates `data-binding` thanks to [DOM Ranges](https://developer.mozilla.org/en-US/docs/Web/API/range).
 It also has strong design patterns and contrary to what people commonly
-think, it's actually pretty straightforwad.
+think, it's actually pretty straightforward.
 Subviews are also pretty easy to use thanks to `{{outlet}}`.
 
-In another words, Ember and Angular both come bundled with real
+In other words, Ember and Angular both come bundled with real
 solutions for UI management. But they also share the same way to
-do it :
+do it:
 
 - _rendering_ (creating and inserting DOM nodes) once
 - updating the bindings
@@ -67,7 +67,7 @@ do it :
 ### React
 
 [React](http://facebook.github.io/react/) brings a completely different approach.
-It has one simple way of going about stuff :
+It has one simple way of going about stuff:
 managing the DOM state is a bloody mess.
 
 Okay, let's just say we call `.render()` everytime anything changes.
@@ -85,36 +85,36 @@ React classes are defined by their `state`.
 When creating a class, you specify a `getInitialState` method which
 will return the initial state.
 
-After that, the only way to modify the state is to pass which values
-of the state have changed to `this.setState` so that it can update
+After that, the only way to modify the state is to pass the values
+of the state which have changed to `this.setState` so that it can update
 the DOM.
 
-A React class takes properties when it's instanciated : they're called `props`.
+A React class takes properties when it's instanciated: they're called `props`.
 They shouldn't be confused with the `state`, their content should only be manipulated
-from _outside_ of the the class (even though it can still get default values by
+from _outside_ the class (even though it can still get default values by
 specifying a `getDefaultProps` method which will return them).
 
-The `state`, however, should only be modified by the class's own methods.
+The `state`, however, should only be modified by the class' own methods.
 
 The main advantage to this is that you're always sure, thanks to the systematic
 call to `render`, that your React component will have the expected representation.
 
 Another advantage to React is its in-house diff algorithm.
-The virtual DOM gets diffed against the previous one (which is the one you see),
+The virtual DOM gets diffed against the previous one (which is the one you actually see),
 and React works out the smallest amount of operations needed in order to update the 
 DOM.
 
 This solves a few issues like keeping track of the caret's position in a text
-field that uses two-way data-binding : since the algorithm doesn't see any reason
+field that uses two-way data-binding: since the algorithm doesn't see any reason
 to update it, the text field doesn't get re-rendered and you keep the focus.
 In the same way, if you've got a gif looping somewhere in your page, it will keep
 playing as it normally would.
 
 React plays very well with JSX, a superset of JS which
 allows you to write your templates with an XML syntax (see example below),
-alowing beginners to get stuff done with it quickly.
+allowing beginners to get stuff done with it quickly.
 
-## Let's create a React component :
+## Let's create a React component:
 
 
 ```javascript
@@ -164,9 +164,8 @@ view.toggle()
 
 React has this figured out:
 
-- the DOM is slow, particularly its writes, and limiting interactions with it is crucial;
-- always thinking about the state the DOM has at any point in time is not what we should
-do while developing the UI of our component;
+- the DOM is slow, particularly when it comes to writing, and it is crucial to limit interactions with it;
+- we should not always have to be thinking about the state the DOM at a specific point in time while developing the UI of our component;
 - immutability (objects don't change, a new one gets created every time you need to change something in it) and composition (composing a class of several functionnalities without having to create deep and complex chains of inheritance) are really useful and not used nearly as much as they should be in front-end development.
 
 As a bonus, React, while not imposing a specific library for data and module communication, offers an approach to it, called [flux](http://facebook.github.io/flux/docs/overview.html) which is really interesting and gives you a hand to design an app while keeping the React paradigms in mind.
